@@ -1,17 +1,54 @@
 package in.beingzero.p1_threadingexample;
 
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
+
+    Button btnLoadImage, btnShowText;
+    ImageView imgvImage;
+    Bitmap bmpResource;
+    boolean isImageLoaded;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        btnLoadImage = (Button) findViewById(R.id.btnLoadImage);
+        btnShowText = (Button) findViewById(R.id.btnShowText);
+        imgvImage = (ImageView) findViewById(R.id.imgvImage);
+        isImageLoaded = false;
+        bmpResource = BitmapFactory.decodeResource(getResources(), R.drawable.painter);
+
+        btnShowText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Hello Android", Toast.LENGTH_SHORT).show();
+            }
+        });
+        btnLoadImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (!isImageLoaded)
+                    imgvImage.setImageBitmap(bmpResource);
+                else
+                    imgvImage.setImageBitmap(null);
+
+                isImageLoaded = !isImageLoaded;
+            }
+        });
     }
 
     @Override
